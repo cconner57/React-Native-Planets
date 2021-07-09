@@ -1,10 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 import OverviewScreen from './OverviewScreen';
 import StructureScreen from './StructureScreen';
 import SurfaceScreen from './SurfaceScreen';
+import Placeholder from '../components/Placeholder';
 import { findPlanetColor } from '../components/Utility';
 
 import data from '../../data.json';
@@ -18,42 +19,39 @@ const PlanetScreen = ({ route }: any) => {
 
 	return (
 		<>
-			{!data ? (
-				<View style={{ flex: 1, backgroundColor: 'hsl(240,67%,8%)' }}>
-					<ActivityIndicator />
-				</View>
-			) : (
-				<Tab.Navigator
-					tabBarOptions={{
-						indicatorStyle: {
-							backgroundColor: findPlanetColor(route.params.otherParam),
-						},
-						activeTintColor: '#fff',
-						inactiveTintColor: 'hsla(0,0%,100%,0.5)',
-						labelStyle: {
-							fontSize: 12,
-							fontWeight: 'bold',
-							fontFamily: 'Spartan-Bold',
-						},
-						style: { backgroundColor: 'hsl(240,67%,8%)' },
-					}}>
-					<Tab.Screen
-						name='Overview'
-						component={OverviewScreen}
-						initialParams={{ planet }}
-					/>
-					<Tab.Screen
-						name='Structure'
-						component={StructureScreen}
-						initialParams={{ planet }}
-					/>
-					<Tab.Screen
-						name='Surface'
-						component={SurfaceScreen}
-						initialParams={{ planet }}
-					/>
-				</Tab.Navigator>
-			)}
+			<Tab.Navigator
+				lazy={true}
+				springConfig={{ stiffness: 80}}
+				lazyPlaceholder={() => <Placeholder />}
+				tabBarOptions={{
+					indicatorStyle: {
+						backgroundColor: findPlanetColor(route.params.otherParam),
+					},
+					activeTintColor: '#fff',
+					inactiveTintColor: 'hsla(0,0%,100%,0.5)',
+					labelStyle: {
+						fontSize: 12,
+						fontWeight: 'bold',
+						fontFamily: 'Spartan-Bold',
+					},
+					style: { backgroundColor: 'hsl(240,67%,8%)' },
+				}}>
+				<Tab.Screen
+					name='Overview'
+					component={OverviewScreen}
+					initialParams={{ planet }}
+				/>
+				<Tab.Screen
+					name='Structure'
+					component={StructureScreen}
+					initialParams={{ planet }}
+				/>
+				<Tab.Screen
+					name='Surface'
+					component={SurfaceScreen}
+					initialParams={{ planet }}
+				/>
+			</Tab.Navigator>
 			<View style={styles.container}>
 				<View style={styles.detail}>
 					<Text style={styles.text}>ROTATION TIME</Text>
