@@ -1,9 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View, Pressable } from 'react-native';
-
+import { StackNavigationProp } from '@react-navigation/stack';
 import { Ionicons } from '@expo/vector-icons';
 
-const PlanetListItem = ({ navigation, color, name }: any) => {
+import { RootStackParamList } from '../../type';
+
+type PlanetListItemProps = {
+	color: string;
+	name: string;
+	navigation: StackNavigationProp<RootStackParamList, 'Planet'>
+}
+
+const PlanetListItem = ({ navigation, color, name }: PlanetListItemProps) => {
 	return (
 		<Pressable
 			style={styles.item}

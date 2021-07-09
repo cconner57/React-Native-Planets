@@ -1,11 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View, Pressable } from 'react-native';
+import { RouteProp } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import * as Linking from 'expo-linking';
 import { findPlanetImage } from '../components/Utility';
+import { RootStackParamList } from '../../type';
 
-const SurfaceScreen = ({ route }: any) => {
-    const handleLinking = () => {
+type SurfaceScreenProps = {
+	route: RouteProp<RootStackParamList, 'Surface'>,
+};
+
+const SurfaceScreen = ({ route }: SurfaceScreenProps) => {
+	const handleLinking = () => {
 		Linking.openURL(route.params.planet.geology.source);
 	};
 
@@ -19,7 +25,7 @@ const SurfaceScreen = ({ route }: any) => {
 			<Pressable style={styles.link} onPress={handleLinking}>
 				<Text style={{ color: 'hsla(0,0%,100%, 0.5)' }}>Source: </Text>
 				<Text style={{ color: '#fff' }}>Wikipedia</Text>
-                <Ionicons style={{marginLeft: 5}} name="open-outline" size={16} color="white" />
+				<Ionicons style={{ marginLeft: 5 }} name="open-outline" size={16} color="white" />
 			</Pressable>
 		</View>
 	);
@@ -39,8 +45,8 @@ const styles = StyleSheet.create({
 		color: '#fff',
 		fontSize: 36,
 		fontWeight: 'bold',
-        fontFamily: 'Antonio-Medium',
-        textTransform: 'uppercase'
+		fontFamily: 'Antonio-Medium',
+		textTransform: 'uppercase'
 	},
 	paragraph: {
 		marginHorizontal: 15,
@@ -49,7 +55,7 @@ const styles = StyleSheet.create({
 		textAlign: 'center'
 	},
 	link: {
-        flexDirection: 'row',
+		flexDirection: 'row',
 		marginHorizontal: 15,
 		textAlign: 'center',
 	},
