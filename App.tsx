@@ -1,21 +1,85 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { useFonts } from 'expo-font';
+
+import HomeScreen from './src/screens/HomeScreen';
+import PlanetScreen from './src/screens/PlanetScreen';
+
+import { Ionicons } from '@expo/vector-icons';
+
+const Stack = createStackNavigator();
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+	let [fontsLoaded] = useFonts({
+		'Antonio-Medium': require('./assets/fonts/Antonio-Medium.ttf'),
+		'Spartan-Bold': require('./assets/fonts/Spartan-Bold.ttf'),
+		'Spartan-Medium': require('./assets/fonts/Spartan-Medium.ttf'),
+	});
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+	return (
+		<SafeAreaProvider>
+			<NavigationContainer>
+				<Stack.Navigator initialRouteName='Home'>
+					<Stack.Screen
+						name='Home'
+						component={HomeScreen}
+						options={() => ({
+							headerTitleAlign: 'left',
+							headerStyle: {
+								backgroundColor: 'hsl(240,67%,8%)',
+							},
+							headerTitleStyle: {
+								marginLeft: 5,
+								color: '#fff',
+								fontSize: 24,
+								fontFamily: 'Antonio-Medium',
+							},
+							headerBackTitleVisible: false,
+							headerTitle: 'THE PLANETS',
+							headerRight: () => (
+								<Ionicons
+									name='menu'
+									style={{ marginRight: 15 }}
+									size={24}
+									color={'#979797'}
+								/>
+							),
+						})}
+					/>
+					<Stack.Screen
+						name='Planet'
+						component={PlanetScreen}
+						options={({ navigation }) => ({
+							headerTitleAlign: 'left',
+							headerStyle: {
+								backgroundColor: 'hsl(240,67%,8%)',
+							},
+							headerTitleStyle: {
+								marginLeft: 5,
+								color: '#fff',
+								fontSize: 24,
+								fontFamily: 'Antonio-Medium',
+							},
+							headerBackTitleVisible: false,
+							headerTitle: 'THE PLANETS',
+							headerLeft: () => {
+								return null;
+							},
+							headerRight: () => (
+								<Ionicons
+									name='menu'
+									style={{ marginRight: 15 }}
+									size={24}
+									color={'#fff'}
+									onPress={() => navigation.popToTop()}
+								/>
+							),
+						})}
+					/>
+				</Stack.Navigator>
+			</NavigationContainer>
+		</SafeAreaProvider>
+	);
+}
