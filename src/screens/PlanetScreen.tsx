@@ -9,10 +9,16 @@ import Placeholder from '../components/Placeholder';
 import { findPlanetColor } from '../components/Utility';
 
 import data from '../../data.json';
+import { RouteProp } from '@react-navigation/native';
+import { RootStackParamList } from '../../type';
+
+type PlanetScreenProps = {
+	route: RouteProp<RootStackParamList, 'Planet'>,
+};
 
 const Tab = createMaterialTopTabNavigator();
 
-const PlanetScreen = ({ route }: any) => {
+const PlanetScreen = ({ route }: PlanetScreenProps) => {
 	const planet = data.filter(
 		(data) => data.name === route.params.otherParam
 	)[0];

@@ -1,4 +1,5 @@
 import React from 'react';
+import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -8,8 +9,9 @@ import HomeScreen from './src/screens/HomeScreen';
 import PlanetScreen from './src/screens/PlanetScreen';
 
 import { Ionicons } from '@expo/vector-icons';
+import { RootStackParamList } from './src/type';
 
-const Stack = createStackNavigator();
+const Stack = createStackNavigator<RootStackParamList>();
 
 export default function App() {
 	let [fontsLoaded] = useFonts({
@@ -17,6 +19,10 @@ export default function App() {
 		'Spartan-Bold': require('./assets/fonts/Spartan-Bold.ttf'),
 		'Spartan-Medium': require('./assets/fonts/Spartan-Medium.ttf'),
 	});
+
+	if (!fontsLoaded) {
+		return <View><Text>Loading...</Text></View>
+	}
 
 	return (
 		<SafeAreaProvider>

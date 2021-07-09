@@ -3,8 +3,14 @@ import { StyleSheet, Text, View, Pressable } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as Linking from 'expo-linking';
 import { findPlanetImage } from '../components/Utility';
+import { RouteProp } from '@react-navigation/native';
+import { RootStackParamList } from '../../type';
 
-const OverviewScreen = ({ route }: any) => {
+type OverviewScreenProps = {
+	route: RouteProp<RootStackParamList, 'Overview'>,
+};
+
+const OverviewScreen = ({ route }: OverviewScreenProps) => {
 	const handleLinking = () => {
 		Linking.openURL(route.params.planet.overview.source);
 	};
